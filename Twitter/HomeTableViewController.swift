@@ -7,15 +7,24 @@
 //
 
 import UIKit
+
 class HomeTableViewController: UITableViewController {
     
     
     var tweetArray = [NSDictionary]()
     var numberOfTweet: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         loadTweet()
     }
+    
     
     func loadTweet(){
         
@@ -42,6 +51,7 @@ class HomeTableViewController: UITableViewController {
     
     
     
+    
     //Twitter Logout
     
     
@@ -51,6 +61,8 @@ class HomeTableViewController: UITableViewController {
         UserDefaults.standard.set(false, forKey: "userLoggedIn")
         
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! tweetCellTableViewCell
@@ -71,6 +83,9 @@ class HomeTableViewController: UITableViewController {
         }
         
         
+        cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+        cell.sR(tweetArray[indexPath.row]["retweeted"] as! Bool)
         
         
         return cell
@@ -83,20 +98,11 @@ class HomeTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return tweetArray.count
     }
     
+    
 }
-
-
-
-
-
-
-
-
-
-
-
